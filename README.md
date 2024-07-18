@@ -10,5 +10,8 @@ This Master's thesis focuses on developing a computational method to facilitate 
 * Use SPARQL language to make queries from OMA enpoint and InParanoid GraphDB repository.
 * Employ platforms such as Jupyter Notebook to write Python code in order to develop the final method.
 
+## Information that can be found here
+In this repository, the code for testing the developed method is named 'Code_method'. In here, libraries, developed functions and how the method works by its code is found. Besides, the memory itself is also collected in PDF format, under the name 'Turpin_Gomez_Asuncion_MScThesis'.
+
 ## Contact
 Please, for any question, collaboration or suggestion contact to this author via email [asunturping@gmail.com].
