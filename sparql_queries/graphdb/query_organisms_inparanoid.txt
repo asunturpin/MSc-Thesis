@@ -1,0 +1,10 @@
+PREFIX orthology: <http://purl.org/net/orth#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX up: <http://purl.uniprot.org/core/>
+
+select (COUNT(DISTINCT ?s) as ?organisms)
+where {
+  GRAPH <http://semantics.inf.um.es/inparanoid> {
+    ?s rdf:type up:Taxon 
+  }
+}

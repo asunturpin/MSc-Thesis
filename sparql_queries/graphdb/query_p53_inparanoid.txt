@@ -1,0 +1,28 @@
+PREFIX orthology: <http://purl.org/net/orth#>
+PREFIX orth: <http://purl.org/net/orth#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX resource: <http://semanticscience.org/resource/>
+
+SELECT DISTINCT ?iduniprot1 ?iduniprot2 ?species1 ?species2
+WHERE {
+  GRAPH <http://semantics.inf.um.es/inparanoid> {
+    ?cluster a orth:OrthologsCluster ;
+             orthology:hasHomologousMember ?node1 ;
+             orthology:hasHomologousMember ?node2 .
+    ?node1 rdfs:label ?geneid1 ;
+           resource:SIO_010078 ?uniprot1 .
+    ?uniprot1 a orthology:Protein ;
+              rdfs:label ?iduniprot1 ;
+              obo:RO_0002162 ?taxid1 .
+    ?taxid1 rdfs:label ?species1 .
+    ?node2 rdfs:label ?geneid2 ;
+           resource:SIO_010078 ?uniprot2 .
+    ?uniprot2 a orthology:Protein ;
+              rdfs:label ?iduniprot2 ;
+              obo:RO_0002162 ?taxid2 .
+    ?taxid2 rdfs:label ?species2 .
+    FILTER (?node1 != ?node2 && ?species1 != ?species2)
+    VALUES (?iduniprot1 ?species1 ?species2) {("{uniprot_id}" "{species1}" "{species2}")}
+      }
+    }
