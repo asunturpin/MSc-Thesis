@@ -1,0 +1,6 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+
+select (COUNT(DISTINCT ?taxid) as ?organisms)
+where {
+    ?s obo:RO_0002162 ?taxid
+  }

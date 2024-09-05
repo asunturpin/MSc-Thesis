@@ -1,0 +1,30 @@
+PREFIX obo:<http://purl.obolibrary.org/obo/>
+    PREFIX orth:<http://purl.org/net/orth#>
+    PREFIX lscr:<http://purl.org/lscr#>
+    PREFIX up:<http://purl.uniprot.org/core/>
+    PREFIX dct: <http://purl.org/dc/terms/>
+
+    SELECT DISTINCT ?name_prot1 ?name_species1 ?name_prot2 ?name_species2
+    WHERE {
+        ?cluster a orth:OrthologsCluster ;
+            orth:hasHomologousMember ?node1 ;
+            orth:hasHomologousMember ?node2 .
+        ?node1 orth:hasHomologousMember* ?protein1 .
+        ?node2 orth:hasHomologousMember* ?protein2 .
+        ?protein1 a orth:Protein ;
+            orth:organism ?taxid1 ;
+            lscr:xrefUniprot ?iduniprot1 .
+        ?taxid1 obo:RO_0002162 ?taxon1 .
+        ?taxon1 up:scientificName ?name_species1 .
+        ?iduniprot1 dct:identifier ?name_prot1 .
+        ?protein2 a orth:Protein ;
+            orth:organism ?taxid2 ;
+            lscr:xrefUniprot ?iduniprot2 .
+        ?taxid2 obo:RO_0002162 ?taxon2 .
+        ?taxon2 up:scientificName ?name_species2 .
+        ?iduniprot2 dct:identifier ?name_prot2 .
+        FILTER (?node1 != ?node2 && ?taxid1 != ?taxid2)
+        VALUES (?name_species1 ?name_species2 ?name_prot1) {
+            ("{species1}" "{species2}" "{uniprot_id}")  
+        }
+    }
